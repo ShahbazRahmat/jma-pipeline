@@ -4,7 +4,7 @@ pipeline {
 
     environment {
         hello = "test"
-        GITHUB = credentials('github-vsi')
+        TEST = credentials('test')
     }
 
     stages {
@@ -17,7 +17,7 @@ pipeline {
             steps {
                 echo "building the application ..."
                 withCredentials([
-                    usernamePassword(credentialsId: 'github-vsi', usernameVariable: 'USER', passwordVariable: 'PWD')
+                    usernamePassword(credentialsId: 'TEST', usernameVariable: 'USER', passwordVariable: 'PWD')
                 ]){
                     sh "some script $USER $PWD"
                 }
