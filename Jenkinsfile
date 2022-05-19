@@ -4,11 +4,11 @@ pipeline {
 
     stages {
         stage ("build") {
-           when {
+           /*when {
                 expression {
                     BRANCH_NAME == 'main' // && CODE_CHANGES == true
                 }
-            }
+            }*/
             steps {
                 echo "building the application ..."
             }
