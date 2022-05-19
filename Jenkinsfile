@@ -7,6 +7,12 @@ pipeline {
         TEST = credentials('test')
     }
 
+    parameters {
+        string(name: 'VERSION', defaultValue: '', description: 'version to deploy on prod')
+        choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: '')
+        booleanParam(name: 'executeTests', defaultValue: true, description: '')
+    }
+
     stages {
         stage ("build") {
            /*when {
@@ -16,11 +22,11 @@ pipeline {
             }*/
             steps {
                 echo "building the application ..."
-                withCredentials([
+                /*withCredentials([
                     usernamePassword(credentialsId: 'TEST', usernameVariable: 'USER', passwordVariable: 'PWD')
                 ]){
                     sh "some script $USER $PWD"
-                }
+                }*/
 
                 /*withCredentials([
                     usernamePassword(credentialsId: 'mycreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')
@@ -32,11 +38,12 @@ pipeline {
         }
 
         stage ("testing") {
-           /* when {
+            when {
                 expression {
-                    BRANCH_NAME == "master"
+                    //BRANCH_NAME == "master"
+                    params.executeTests == true
                 }
-            }*/
+            }
             steps {
                 echo "testing the application ..."
             }
