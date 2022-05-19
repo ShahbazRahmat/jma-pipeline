@@ -17,10 +17,17 @@ pipeline {
             steps {
                 echo "building the application ..."
                 withCredentials([
-                    usernamePassword(credentials: 'github-vsi', usernameVariable: USER, passwordVariable: PWD)
+                    usernamePassword(credentialsId: 'github-vsi', usernameVariable: 'USER', passwordVariable: 'PWD')
                 ]){
-                    sh "some script ${USER} ${PWD}"
+                    sh "some script $USER $PWD"
                 }
+
+                /*withCredentials([
+                    usernamePassword(credentialsId: 'mycreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')
+                    ]) {
+                        sh 'cf login some.awesome.url -u $USERNAME -p $PASSWORD'
+
+                    }*/
             }
         }
 
