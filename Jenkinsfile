@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     environment {
-        hellow = "test"
+        hello = "test"
         GITHUB = credentials('github-vsi')
     }
 
@@ -32,8 +32,8 @@ pipeline {
         stage ("deployment") {
             steps {
                 echo "deploying the application ..."
-                echo "Deploying with ${GITHUB}"
-                sh "${GITHUB}"
+                echo "Deploying with ${hello}"
+                //sh "${GITHUB}"
             }
         }
     }
