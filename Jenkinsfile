@@ -2,13 +2,17 @@
 pipeline {
     agent any
 
+    environment {
+
+    }
+
     stages {
         stage ("build") {
-           when {
+           /*when {
                 expression {
                     "${BRANCH_NAME}" == 'main' // && CODE_CHANGES == true
                 }
-            }
+            }*/
             steps {
                 echo "building the application ..."
             }
@@ -27,6 +31,7 @@ pipeline {
         stage ("deployment") {
             steps {
                 echo "deploying the application ..."
+                echo "Deploying with ${github-vsi}"
             }
         }
     }
