@@ -51,7 +51,7 @@ pipeline {
         stage ("deployment") {
             steps {
                 echo "deploying the application ..."
-                //echo "Deploying with ${hello}"
+                echo "Deploying with ${params.VERSION}"
                 //sh "${GITHUB}"
             }
         }
