@@ -4,7 +4,7 @@ pipeline {
 
     environment {
         hello = "test"
-        TEST = credentials('test')
+        //TEST = credentials('test')
     }
 
     parameters {
@@ -51,7 +51,7 @@ pipeline {
         stage ("deployment") {
             steps {
                 echo "deploying the application ..."
-                echo "Deploying with ${hello}"
+                //echo "Deploying with ${hello}"
                 //sh "${GITHUB}"
             }
         }
