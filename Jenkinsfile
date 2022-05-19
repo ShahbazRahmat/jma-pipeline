@@ -16,6 +16,11 @@ pipeline {
             }*/
             steps {
                 echo "building the application ..."
+                withCredentials([
+                    usernamePassword(credentials: 'github-vsi', usernameVariable: USER, passwordVariable: PWD)
+                ]){
+                    sh "some script ${USER} ${PWD}"
+                }
             }
         }
 
