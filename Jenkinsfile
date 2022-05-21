@@ -1,4 +1,6 @@
 //CODE_CHANGES = getGitChanges()
+def gv
+
 pipeline {
     agent any
 
@@ -14,6 +16,11 @@ pipeline {
     }
 
     stages {
+        stage ("init") {
+            steps {
+                gv = load "script.groovy"
+            }
+        }
         stage ("build") {
            /*when {
                 expression {
@@ -21,19 +28,15 @@ pipeline {
                 }
             }*/
             steps {
-                echo "building the application ..."
+                script {
+                    gv.buildApp()
+                }
+                //echo "building the application ..."
                 /*withCredentials([
                     usernamePassword(credentialsId: 'TEST', usernameVariable: 'USER', passwordVariable: 'PWD')
                 ]){
                     sh "some script $USER $PWD"
                 }*/
-
-                /*withCredentials([
-                    usernamePassword(credentialsId: 'mycreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')
-                    ]) {
-                        sh 'cf login some.awesome.url -u $USERNAME -p $PASSWORD'
-
-                    }*/
             }
         }
 
@@ -41,18 +44,23 @@ pipeline {
             when {
                 expression {
                     //BRANCH_NAME == "master"
-                    params.executeTests == false
+                    params.executeTests
                 }
             }
             steps {
-                echo "testing the application ..."
+                script {
+                    gv.testApp()
+                }
             }
         }
         stage ("deployment") {
             steps {
-                echo "deploying the application ..."
-                echo "Deploying with ${params.VERSION}"
+                //echo "deploying the application ..."
+                //echo "Deploying with ${params.VERSION}"
                 //sh "${GITHUB}"
+                script {
+                    gv.deployApp()
+                }
             }
         }
     }
